@@ -6,13 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.ComponentName;
+import android.util.Log;
 
 import com.example.lab8.R;
+import com.example.lab8.RandomCharacterService;
 
 public class MainActivity extends AppCompatActivity {
+
     private EditText randomCharEditText;
     private Intent backgroundServiceIntent;
     private BroadcastReceiver broadcastReceiver;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             char c = intent.getCharExtra("randomCharacter", '?');
+            Log.i("MainActivity", "Received char: " + c);
             randomCharEditText.setText(String.valueOf(c));
         }
     }
