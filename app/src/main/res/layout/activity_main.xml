@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:gravity="center"
+    android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="24dp">
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/editText_randomChar"
@@ -12,27 +12,28 @@
         android:layout_height="wrap_content"
         android:hint="Random Letter"
         android:gravity="center"
-        android:enabled="false"/>
+        android:enabled="false"
+        android:textSize="18sp"
+        android:textColor="#000000" />
 
     <Button
         android:id="@+id/button_start"
-        android:text="START"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="START"
+        android:layout_marginTop="24dp" />
 
     <Button
         android:id="@+id/button_stop"
-        android:text="STOP"
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="STOP"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/button_next"
-        android:text="NEXT ACTIVITY"
-        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:text="NEXT ACTIVITY"
+        android:layout_marginTop="16dp" />
 </LinearLayout>
