@@ -13,6 +13,7 @@
         android:hint="Random Letter"
         android:gravity="center"
         android:enabled="false"
+        android:focusable="false"
         android:textSize="18sp"
         android:textColor="#000000" />
 

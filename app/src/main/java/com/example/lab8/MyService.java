@@ -29,20 +29,17 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Music Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
+        // Создание канала до запуска уведомления
+        createNotificationChannel();
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Music Playing")
-                .setContentText("Foreground Service is running")
-                .setSmallIcon(R.drawable.ic_music)
+                .setContentTitle("🎵 Музыка играет")
+                .setContentText("Нажми для открытия приложения")
+                .setSmallIcon(R.drawable.ic_launcher_foreground) // замени на свою иконку, если нужно
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_SERVICE)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setOngoing(true)
                 .build();
 
         startForeground(1, notification);
@@ -54,7 +51,10 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        soundPlayer.stop();
+        if (soundPlayer != null) {
+            soundPlayer.stop();
+            soundPlayer.release();
+        }
         Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
     }
 
@@ -62,5 +62,25 @@ public class MyService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Music Channel",
+                    NotificationManager.IMPORTANCE_HIGH
+            );
+            channel.setDescription("Канал для воспроизведения музыки");
+            channel.enableLights(true);
+            channel.enableVibration(false);
+            channel.setShowBadge(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            if (manager != null) {
+                manager.createNotificationChannel(channel);
+            }
+        }
     }
 }
